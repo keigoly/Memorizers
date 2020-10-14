@@ -1,0 +1,25 @@
+= provide(:title, 'みんなの問題')
+
+.community-questions-container
+  .community-questions-container__heading
+    h1.community-questions-container__heading-top
+      i.fas.fa-users
+      |  みんなの問題
+    p.community-questions-container__heading-text
+      | 公開されている問題を解いてみましょう。<br>
+      | お気に入りの問題をダウンロードして復習することができます。
+
+  .community-questions-container__top
+    #question-search
+      = render 'community_search', url: communities_questions_path
+  .community-questions-container__main
+    #community-questions-table
+      = render 'community_questions_table'
+
+
+  .home-back
+    = link_to '< HOME', root_path
+
+/ 問題から戻ってきた時
+- if params[:back]
+  = link_to '', communities_questions_path(question_back_params(session[:question_back])), remote: true, id: 'hidden_link'

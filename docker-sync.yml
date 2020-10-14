@@ -1,0 +1,7 @@
+version: '2'
+
+syncs:
+  sync-volume:
+    src: '.'
+    sync_userid: '1000'
+    sync_excludes: ['node_modules', 'bundle']

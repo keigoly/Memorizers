@@ -1,0 +1,7 @@
+| $('#later-list-modal').html('#{escape_javascript(render 'shared/later_list')}');
+- if @sub_type == 'always'
+  | $('#later-overlay').fadeIn('fast');
+- else
+  | $('#overlay').fadeIn('fast');
+- unless @sub_type
+  | $('#later_list_word').focus();

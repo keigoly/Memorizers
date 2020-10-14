@@ -1,0 +1,49 @@
+.learn-show-bottom {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+  &__info {
+    // display: flex;
+    .till-next-day {
+      font-size: 18px;
+    }
+  }
+  &__today {
+    label {
+      font-size: 16px;
+    }
+    input[type='checkbox'] {
+      width: 25px;
+    }
+  }
+  &__edit-btn {
+    @include submit-btn;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 0 20px;
+  }
+  &__destroy-btn {
+    @include destroy-btn;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  &__next {
+    @include submit-btn;
+    margin-left: 13px;
+    font-size: 18px;
+  }
+  &__finish {
+    @include submit-btn;
+    margin-left: 13px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  &__another {
+    @include submit-btn;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .again-form {
+    display: inline-block;
+  }
+}

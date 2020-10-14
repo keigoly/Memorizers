@@ -1,0 +1,25 @@
+= provide(:title, '単語ライブラリー')
+
+.community-words-container
+  .community-questions-container__heading
+    h1.community-questions-container__heading-top
+      i.fas.fa-users
+      |  単語ライブラリー
+    p.community-questions-container__heading-text
+      | 他のユーザーが学習した単語一覧です。気になる単語を学習してみましょう。
+
+  .community-words-container__left
+    .community-words-container__search
+      = render 'community_search', url: communities_words_path
+
+    #community-words-table
+      = render 'community_words_table'
+  .community-words-container__right
+    .community-words-container__webster
+      #webster-field
+        = link_to 'https://www.merriam-webster.com/', target: '_blank', rel: 'noopener' do
+          = image_pack_tag 'Merriam-Webster-logo.png', class: 'merriam-logo'
+      #default-word-link
+
+  .home-back
+    = link_to '< HOME', root_path

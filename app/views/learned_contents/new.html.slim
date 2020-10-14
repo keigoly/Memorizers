@@ -1,0 +1,95 @@
+= provide(:title,  '新規学習')
+
+.new-word-search
+  = form_with url: result_path, class: 'new-word-search__form' do |f|
+    = f.text_field :word, placeholder: 'Search for a word...', class: 'new-word-search__input'
+    = f.hidden_field :type, value: 'main'
+    span.new-word-search__eraser.fa.fa-times#erasor
+    = button_tag type: 'submit', class: 'new-word-search__submit', id: 'consult-submit' do
+      i.fas.fa-search.new-word-search__icon
+
+.api-info
+
+.learn-grid-container
+  .learn-grid-container__webster
+    #webster-field
+      - if !logged_in? || current_user.is_test_user?
+        ol.learn-grid-container__guide
+          i.far.fa-question-circle
+          li.learn-grid-container__guide-li
+            | 1. 上のフォームから英単語を検索します。
+          li.learn-grid-container__guide-li
+            | 2. 下に表示されるボタンをクリックして、単語に関連する画像を取得し、保存します。（任意）
+          li.learn-grid-container__guide-li
+            | 3. 単語の意味などをメモします。（任意）
+          li.learn-grid-container__guide-li
+            | 4. 単語に関する問題と答えを作成します。（必須）
+      = link_to 'https://www.merriam-webster.com/', target: '_blank', rel: 'noopener' do
+        = image_pack_tag 'Merriam-Webster-logo.png', class: 'merriam-logo'
+  .learn-grid-container__study
+    i.fa.fa-edit.learn-grid-container__edit-icon
+    .learn-grid-container__study-field
+      = form_with model: @learned_content, url: learns_path do |f|
+        .learn-grid-container__select
+          = f.label :main_word, 'Main word:'
+          = f.select :main_word, [], {}, { class: 'main-word-select' }
+          .hidden-forms
+        .learn-grid-container__trix-area
+          = f.rich_text_area :content
+        = f.select :related_image, [], {}, { id: 'related_image', multiple: true ,class: 'hidden' }
+        = f.select :related_word, [], {}, { id: 'related_word', multiple: true ,class: 'hidden' }
+        .learn-grid-container__saved-images
+        .learn-grid-container__question.clearfix
+          a.learn-grid-container__quick-question#quick-question Quick
+          = f.fields_for :questions, @new_question do |qf|
+            = qf.label :question, 'Question 1', class: 'learn-grid-container__question-label'
+            = qf.text_area :question, class: 'learn-grid-container__question-area', rows: 4
+            = qf.label :answer, 'Answer 1', class: 'learn-grid-container__answer-label'
+            = qf.text_field :answer, class: 'learn-grid-container__answer-field', autocomplete: 'off'
+          a.add-next-box
+            i.fas.fa-chevron-circle-down
+            | more
+        .learn-grid-container__question.clearfix.hidden
+          = f.fields_for :questions, @new_question do |qf|
+            = qf.label :question, 'Question 2', class: 'learn-grid-container__question-label'
+            = qf.text_area :question, class: 'learn-grid-container__question-area', rows: 4
+            = qf.label :answer, 'Answer 2', class: 'learn-grid-container__answer-label'
+            = qf.text_field :answer, class: 'learn-grid-container__answer-field', autocomplete: 'off'
+          a.remove-question-box.fas.fa-trash-alt
+          a.add-next-box
+            i.fas.fa-chevron-circle-down
+            | more
+        .learn-grid-container__question.clearfix.hidden
+          = f.fields_for :questions, @new_question do |qf|
+            = qf.label :question, 'Question 3', class: 'learn-grid-container__question-label'
+            = qf.text_area :question, class: 'learn-grid-container__question-area', rows: 4
+            = qf.label :answer, 'Answer 3', class: 'learn-grid-container__answer-label'
+            = qf.text_field :answer, class: 'learn-grid-container__answer-field', autocomplete: 'off'
+          a.remove-question-box.fas.fa-trash-alt
+        .learn-grid-container__subtle
+          .learn-grid-container__category
+            = f.label :word_category_id, 'Category:'
+            = f.collection_select :word_category_id, @word_categories, :id, :category, {}, {class: ''}
+          .learn-grid-container__public
+            = f.label :is_public, 'Public'
+            = f.check_box :is_public
+        #learn-error
+        .learn-grid-container__submit
+          = f.submit 'Save', class: "#{guest_class}", id: 'loading-needed'
+          - unless logged_in?
+            p.learn-grid-container__guest-text 学習内容保存にはログインが必要です。
+.learn-grid-container__pixabay
+  .pixabay-btn
+  = link_to 'https://pixabay.com/', target: '_blank', rel: 'noopener' do
+    = image_pack_tag 'pixabay-logo.png', class: 'pixabay-logo'
+  #images-result
+
+.home-back
+  = link_to '< HOME', root_path
+
+- if @default_word
+  = link_to '', result_path(word: @default_word), method: :post, remote: true, id: 'hidden_link'
+
+= link_to '', learn_template_path(@template_id), remote: true, id: 'hidden_template_link'
+
+p#loading 学習内容を保存中です...

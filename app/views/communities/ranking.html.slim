@@ -1,0 +1,28 @@
+= provide(:title, 'ランキング')
+
+.community-ranking-container
+  .community-ranking-container__heading
+    h1.community-ranking-container__heading-top
+      i.fas.fa-crown
+      |  ランキング
+    p.community-ranking-container__heading-text
+      | 週間ランキングの期間は「#{I18n.l Time.zone.now.beginning_of_week, format: :full_date} 〜
+      |  #{I18n.l Time.zone.now.end_of_week, format: :full_date}」です。
+  .community-ranking-container__word
+    .community-ranking-container__word-top
+      h2.community-ranking-container__word-heading 単語学習数
+      = form_with url: communities_ranking_path, method: :get, id: 'onclick-form', class: 'community-ranking-container__word-form' do |f|
+        = f.select :learn_period, ['週間', '総合'], {}, class: 'onclick-select'
+    #ranking-table
+      = render 'ranking_table', users: @learn_users, type: 'learns'
+
+  .community-ranking-container__word
+    .community-ranking-container__word-top
+      h2.community-ranking-container__word-heading いいね獲得数
+      = form_with url: communities_ranking_path, method: :get, id: 'favo-onclick-form', class: 'community-ranking-container__word-form' do |f|
+        = f.select :favorite_period, ['週間', '総合'], {}, class: 'favo-onclick-select'
+    #favo-ranking-table
+      = render 'ranking_table', users: @favorite_users, type: 'favorites'
+
+  .home-back
+    = link_to '< HOME', root_path

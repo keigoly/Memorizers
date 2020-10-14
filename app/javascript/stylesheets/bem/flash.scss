@@ -1,0 +1,38 @@
+#flash-box {
+  position: fixed;
+  top: 15px;
+  margin: auto;
+  width: 80%;
+  z-index: 10;
+  display: none;
+}
+%flash {
+  padding: 15px 30px;
+  border-radius: 4px;
+  border: 1px solid #6eb46f;
+  ;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+.flash {
+  &__notice {
+    @extend %flash;
+    // background-color: palegreen;
+    // color: #275327;
+    background-color: #c0f8a9;
+    color: #2f5a2f;
+  }
+  &__danger {
+    @extend %flash;
+    background-color: #fabbbb;
+    color: #963535;
+    // border-color: $error-color
+    border-color: #f79090;
+  }
+  &__level_up {
+    @extend %flash;
+    background-color: #9ae4fa;
+    color: #01617e;
+    border-color: #159bc4;
+  }
+}

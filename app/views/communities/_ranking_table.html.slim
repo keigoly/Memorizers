@@ -1,0 +1,27 @@
+table.community-ranking-container__table
+  thead
+    tr
+      th.community-ranking-container__th--1 順位
+      th.community-ranking-container__th--2 ユーザー
+      th.community-ranking-container__th--3 レベル
+      th.community-ranking-container__th--4= type == 'learns' ? '単語学習数' : 'いいね獲得数'
+  tbody
+    - users.each_with_index do |user, index|
+      - if user == current_user
+        - tr_class = 'community-ranking-container__my-tr'
+      tr class="#{tr_class}"
+        td= index + 1 + @ranking
+        td= user.name
+        td= user.level
+        td= user.send("#{type}_count")
+    - (10 - users.length).times do
+      tr
+        td &nbsp;
+        td &nbsp;
+        td &nbsp;
+        td &nbsp;
+
+- if type == 'learns'
+  = paginate users, remote: true, params: { learn: 1 }
+- else
+  = paginate users, remote: true

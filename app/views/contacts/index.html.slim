@@ -1,0 +1,15 @@
+= provide(:title, 'お問い合わせ')
+
+- provide(:contact_url, contacts_path)
+
+.contact
+  h1.contact__heading お問い合わせ
+
+  #contact-list
+    = render 'contacts'
+
+  #contact-form
+    = render 'contact_form'
+
+  .home-back
+    = link_to '< HOME', root_path

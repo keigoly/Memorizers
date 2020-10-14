@@ -1,0 +1,4 @@
+- if @message
+  | setFlash('danger', "#{@message}");
+- else
+  | $('#password-reset-form').html('#{escape_javascript(render 'reset_form')}');
